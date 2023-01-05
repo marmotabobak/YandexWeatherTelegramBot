@@ -22,6 +22,16 @@ def set_user_city(tg_id, city):
     user.city = city
     session.commit()
 
+def get_user_city(tg_id) -> str:
+    '''
+    Returns user's city from Users table
+    :param tg_id: User id
+    :return: String city name
+    '''
+    session = Session()
+    user = session.query(User).filter(User.tg_id == tg_id).first()
+    return user.city
+
 def create_report(tg_id, temp, feels_like, wind_speed, pressure_mm, city):
     session = Session()
     user = session.query(User).filter(User.tg_id == tg_id).first()

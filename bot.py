@@ -36,6 +36,7 @@ async def get_user_city_weather(message):
     markup.add(btn1)
     text = 'Я пока так не умею'
     data = request.get_msk_forecast()
+    orm.create_report(message.from_user.id, data["temp"], data["feels_like"], data["wind_speed"], data["pressure_mm"], 'Москва - но текущий город: ' + orm.get_user_city(message.from_user.id))
     text = f'Погода в Москве\nТемпература: {data["temp"]} C\nОщущается как: {data["feels_like"]} C \nСкорость ветра: {data["wind_speed"]}м/с\nДавление: {data["pressure_mm"]}мм'
     await message.answer(text, reply_markup=markup)
 
