@@ -62,6 +62,7 @@ async def city_chosen(message: types.Message, state: FSMContext):
     markup.add(btn1, btn2, btn3, btn4)
     city = await state.get_data()
     data = request.get_msk_forecast()
+    orm.create_report(message.from_user.id, data["temp"], data["feels_like"], data["wind_speed"], data["pressure_mm"], 'Москва - был введен ' + city.get('waiting_city'))
     text = f'Погода в {city.get("waiting_city")} (пока все равно Москва =)\nТемпература: {data["temp"]} C\nОщущается как: {data["feels_like"]} C \nСкорость ветра: {data["wind_speed"]}м/с\nДавление: {data["pressure_mm"]}мм'
     await message.answer(text, reply_markup=markup)
     await state.finish()
